@@ -68,7 +68,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable int id) {
         Product product = service.getProductById(id);
         if (product != null) {
@@ -78,5 +78,12 @@ public class ProductController {
             return new ResponseEntity<>("deletion error", HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("/product/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        System.out.println("Searching with " + keyword);
+        List<Product> products = service.searchProducts(keyword);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }
